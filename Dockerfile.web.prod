@@ -1,0 +1,5 @@
+FROM scratch
+
+COPY ./web/main /main
+
+ENTRYPOINT ["/main"]

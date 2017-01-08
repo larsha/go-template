@@ -5,11 +5,12 @@ import(
   "fmt"
   "log"
   "net/http"
-  "runtime"
+  "strconv"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello World, I'm running on %s with an %s CPU ", runtime.GOOS, runtime.GOARCH)
+  // fmt.Fprintf(w, "Hello World, I'm running on %s with an %s CPU ", runtime.GOOS, runtime.GOARCH)
+  fmt.Fprintf(w, "%s", strconv.Itoa(Add(10, 3)))
 }
 
 func httpHandler(handler http.Handler) http.Handler {
@@ -26,5 +27,5 @@ func main() {
   // Routes
   http.HandleFunc("/", indexHandler)
 
-  http.ListenAndServe(":" + port, httpHandler)
+  http.ListenAndServe(":" + port, handler)
 }

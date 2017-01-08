@@ -3,11 +3,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.web
-    command: go run main.go
+      dockerfile: Dockerfile.web.dev
+    command: go run main.go utils.go
     environment:
       PORT: 3000
     ports:
       - "3000:3000"
     volumes:
-      - ./app:/go/src/app
+      - ./web:/web
