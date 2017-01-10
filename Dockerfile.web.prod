@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY ./web/main /main
+COPY ./web/main /go/src/web
 
 ENTRYPOINT ["/main"]

@@ -1,2 +1,5 @@
 FROM golang:latest
-WORKDIR /web
+WORKDIR /go/src/app
+ADD ./web /go/src/app
+RUN go get -v app
+CMD ["/go/bin/app"]

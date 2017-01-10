@@ -1,13 +1,14 @@
 version: '2'
 services:
+  redis:
+    image: redis:latest
   web:
     build:
       context: .
       dockerfile: Dockerfile.web.dev
-    command: go run main.go utils.go
-    environment:
-      PORT: 3000
     ports:
       - "3000:3000"
     volumes:
-      - ./web:/web
+      - ./web:/go/src/app
+    depends_on:
+      - redis
