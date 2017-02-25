@@ -10,5 +10,8 @@ build:
 get:
 	docker-compose exec web go get
 
-# prod:
-# 	docker run --rm -v `pwd`/web:/web -w /web golang:latest sh -c 'CGO_ENABLED=0 go build -a --installsuffix cgo --ldflags="-s" -o app .'
+# Usage: make host=http://localhost locust
+locust:
+	docker build --build-arg PATH_TO_LOCUST=/devops/locust -t locust -f Dockerfile.locust .
+	docker run -p 8089:8089 -it --rm locust /usr/bin/locust -H $(host)
+	docker rmi locust
