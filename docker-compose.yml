@@ -1,5 +1,12 @@
 version: '2'
 services:
+  locust:
+    image: fredriklack/docker-locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./devops/locust:/locust
+    command: locust -H http://web:3000
   redis:
     image: redis:latest
   web:
