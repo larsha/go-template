@@ -1,5 +1,0 @@
-FROM scratch
-
-COPY ./web/main /go/src/web
-
-ENTRYPOINT ["/main"]

@@ -1,11 +1,12 @@
 package main
 
 import(
+  "os"
   "gopkg.in/redis.v5"
 )
 
 var client = redis.NewClient(&redis.Options{
-  Addr: "redis:6379",
+  Addr: os.Getenv("REDIS_URI"),
   Password: "",
   DB: 0,
 });
