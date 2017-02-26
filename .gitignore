@@ -24,7 +24,7 @@ _testmain.go
 *.prof
 
 # Build
-/web/main
+.build
 
 # Locust
 /devops/locust/locustfile.pyc
