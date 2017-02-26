@@ -1,11 +1,11 @@
+package = github.com/larsha/go-template
+
 test:
-	docker-compose run --rm web sh -c 'go get -t && go test -v'
+	docker-compose run --rm web sh -c 'cd src/${package} && go get -t && go test -v ./...'
 
-# Usage make package=<package> get
+# Usage make lib=<lib> get
 get:
-	docker-compose run --rm web go get ${package}
+	docker-compose run --rm web go get ${lib}
 
-run:
-	docker-compose stop web
-	docker-compose build web
-	docker-compose up web
+format:
+	docker-compose run --rm web go fmt ${package}

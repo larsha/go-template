@@ -20,3 +20,8 @@ func Set(key, value string) error {
 func Get(key string) (string, error) {
 	return client.Get(key).Result()
 }
+
+// Del keys from redis
+func Del(keys string) error {
+	return client.Del(keys).Err()
+}

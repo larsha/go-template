@@ -16,7 +16,7 @@ services:
     environment:
       - REDIS_URI=redis:6379
     volumes:
-      - ${HOME}/go:/go
+      - .:/go/src/github.com/larsha/go-template
     ports:
       - "3000:3000"
     depends_on:

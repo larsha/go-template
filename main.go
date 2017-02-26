@@ -22,7 +22,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	add := strconv.Itoa(utils.Add(1, 3))
+	add := strconv.Itoa(utils.Add(1, 2))
 
 	fmt.Fprintf(w, "%s %s", val, add)
 }
