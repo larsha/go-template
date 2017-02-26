@@ -1,5 +1,10 @@
 FROM golang:latest
+
 WORKDIR /go/src/app
+
 ADD ./web /go/src/app
+
 RUN go get -v app
+RUN go install
+
 CMD ["/go/bin/app"]

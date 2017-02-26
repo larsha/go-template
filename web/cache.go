@@ -5,9 +5,9 @@ import(
 )
 
 var client = redis.NewClient(&redis.Options{
-    Addr: "redis:6379",
-    Password: "",
-    DB: 0,
+  Addr: "redis:6379",
+  Password: "",
+  DB: 0,
 });
 
 func Set(key, value string) error {

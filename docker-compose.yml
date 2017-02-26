@@ -15,7 +15,5 @@ services:
       dockerfile: Dockerfile.web.dev
     ports:
       - "3000:3000"
-    volumes:
-      - ./web:/go/src/app
     depends_on:
       - redis
