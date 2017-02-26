@@ -1,10 +1,14 @@
 FROM golang:latest
 
-WORKDIR /go/src/app
+ENV package github.com/larsha/go-template
 
-ADD ./web /go/src/app
+ADD . /go/src/$package
 
-RUN go get -v app
-RUN go install
+WORKDIR /go/src/$package
 
-CMD ["/go/bin/app"]
+RUN go get -t $package
+RUN go get github.com/stretchr/testify/assert
+
+WORKDIR /go
+
+CMD go run src/$package/main.go
