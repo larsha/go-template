@@ -1,23 +1,28 @@
-package = github.com/larsha/go-template
+.PHONY: run redis locust scratch
 
-test:
-	docker-compose run --rm web sh -c 'cd src/${package} && go get -t && go test -v ./...'
+run:
+	REDIS_URI=localhost:6379 PORT=3000 go run main.go
 
-# Usage make lib=<lib> get
-get:
-	docker-compose run --rm web go get ${lib}
+redis:
+	docker run --rm -d \
+		--name redis \
+		-p 6379:6379 \
+		redis:latest
 
-format:
-	docker-compose run --rm web go fmt ${package}
+locust:
+	docker run --rm \
+		-v `pwd`/devops/locust:/locust \
+		-p 8089:8089 \
+		fredriklack/docker-locust \
+		locust -H http://localhost:3000
 
 scratch:
-	docker run --rm \
-		-v `pwd`:/go/src/main \
-		-w /go/src/main \
-		golang:latest \
-		sh -c 'go get && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o .build/main .'
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o .build/main .
 
 	curl -o .build/ca-certificates.crt https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt
-	docker build -t go-template -f Dockerfile.scratch .
+	docker build -t go-template .
 	rm -rf .build
-	docker run -it -p 3000:3000 go-template
+
+	docker run --rm -it \
+		-p 3000:3000 \
+		go-template

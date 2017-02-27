@@ -6,6 +6,7 @@ import (
 	"github.com/larsha/go-template/middlewares"
 	"github.com/larsha/go-template/utils"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -29,5 +30,5 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":3000", middlewares.Logger(http.DefaultServeMux))
+	http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.Logger(http.DefaultServeMux))
 }
