@@ -1,14 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/larsha/go-template/api"
 	"github.com/larsha/go-template/cache"
 	"github.com/larsha/go-template/middlewares"
-	"github.com/larsha/go-template/utils"
 	"net/http"
 	"os"
-	"strconv"
 )
+
+type fooBar struct {
+	Foo string `json:"foo"`
+}
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	err := cache.Set("foo", "bar")
@@ -23,12 +27,23 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	add := strconv.Itoa(utils.Add(1, 2))
+	data := fooBar{Foo: val}
 
-	fmt.Fprintf(w, "%s %s", val, add)
+	// add := strconv.Itoa(utils.Add(1, 2))
+
+	// fmt.Fprintf(w, "%s %s", val, add)
+
+	json.NewEncoder(w).Encode(data)
 }
 
 func main() {
+	api := api.New()
+	stores, err := api.GetStores()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(stores)
+
 	http.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.Logger(http.DefaultServeMux))
 }
